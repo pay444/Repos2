@@ -7,7 +7,8 @@ UI::UI():SGAActor()
 }
 
 UI::UI(SpriteBatch * pBatch, SGASpriteSheet * pSheet, SpriteFont * pFont)
-	:SGAActor(pBatch,pSheet,pFont)
+	:SGAActor(pBatch,pSheet,pFont),
+	mpPlayer(nullptr)
 {
 }
 
@@ -26,6 +27,7 @@ void UI::Init(E_SORTID eSortID, XMFLOAT2 pos, bool visible)
 	//이동거리
 	//mMoveDistance = moveDis;
 	//보이고 안보이고
+	mpPlayer = nullptr;
 	mUIVisible = visible;
 	SGAActor::Init(anim, 1,eSortID);
 	SetPosition(pos + XMFLOAT2(100.0f,0.0f));

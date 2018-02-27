@@ -264,8 +264,8 @@ void World::Draw()
 				if(visible)
 				{
 					wchar_t wch[5];
-					//swprintf_s(wch, L"%d", index);
-					swprintf_s(wch, L"%d", index);//mTileInfo[index]->underObject
+					swprintf_s(wch, L"%d", mTileInfo[index]->AttackNum);
+					//swprintf_s(wch, L"%d", index);//mTileInfo[index]->underObject
 					mpFont->DrawString(mpBatch, wch, XMFLOAT2(mPosition), DirectX::Colors::Black, 0.0f, XMFLOAT2(0.0f, 0.0f), XMFLOAT2(0.5f, 0.5f));
 				}
 			}

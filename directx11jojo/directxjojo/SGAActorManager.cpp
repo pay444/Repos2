@@ -18,6 +18,7 @@ SGAActorManager::~SGAActorManager()
 
 E_SCENE SGAActorManager::Update(float dt)
 {
+
 	//SortActors();
 	//값이 바뀌지 않음
 	for (const auto &actor : mActors)
@@ -31,7 +32,7 @@ E_SCENE SGAActorManager::Update(float dt)
 
 	}
 
-	CheckAction();
+	
 
 
 	if (!mUiCheck)
@@ -44,6 +45,9 @@ E_SCENE SGAActorManager::Update(float dt)
 		//클릭한 해당놈의의 위치와 보여주는 여부를 UI에게 넘겨줌
 		RePosAndVisiUI();
 	}
+
+	//행동 체크 공격이나 그런것들
+	CheckAction();
 
 	if (SGAFramework::mMouseTracker.rightButton == Mouse::ButtonStateTracker::ButtonState::RELEASED)
 	{
@@ -83,7 +87,6 @@ E_SCENE SGAActorManager::Update(float dt)
 		mTurn = true;
 		//mActionTurn = 0;
 	}
-
 
 
 	return E_SCENE_NONPASS;
@@ -317,7 +320,12 @@ void SGAActorManager::RePosAndVisiUI()
 						MBVisible = ((MoveBox*)actor.get())->GetVisible();
 					break;
 				}
-
+				//내가 클릭한 캐릭터만 넣기
+				if(mouseIndex == posIndex)
+				{
+					GetClassUI()->SetPlayer((Player*)pCollider);
+				}
+				
 				if (mClickCount >= 2 && mouseIndex == posIndex && ((Character*)pCollider)->GetActionTurn() < 2)
 				{
 					for (const auto &actor : mActors)
@@ -564,6 +572,32 @@ vector<unique_ptr<int>>* SGAActorManager::GetvecAtScopeIndex()
 			return ((AttackBox *)actor.get())->GetVecAtScopeIndex();
 		}
 	}
+}
+
+UI * SGAActorManager::GetClassUI()
+{
+	for (const auto &actor : mActors)
+	{
+		if (typeid(*actor) == typeid(UI))
+		{
+			return ((UI*)(actor.get()));
+			break;
+		}
+	}
+	return nullptr;
+}
+
+AttackBox * SGAActorManager::GetClassAttackBox()
+{
+	for (const auto &actor : mActors)
+	{
+		if (typeid(*actor) == typeid(AttackBox))
+		{
+			return ((AttackBox*)(actor.get()));
+			break;
+		}
+	}
+	return nullptr;
 }
 
 void SGAActorManager::SetMBVisible(bool visible)

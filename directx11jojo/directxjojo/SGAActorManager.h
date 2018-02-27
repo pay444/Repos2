@@ -46,6 +46,8 @@ public:
 	bool GetUICheckArea();
 	vector<unique_ptr<int>>* GetvecAtScopeIndex();
 	bool GetTurn() { return mTurn; }
+	class UI* GetClassUI();
+	class AttackBox* GetClassAttackBox();
 
 	void SetMBVisible(bool visible);
 	vector<unique_ptr<TILE>>* GetTileInfo();

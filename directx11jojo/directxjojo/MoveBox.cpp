@@ -124,6 +124,7 @@ void MoveBox::Draw()
 				(*pVecTile)[vecScopeIndex[x]]->vPos.y + JOJOTILESY / 2);
 			mpSheet->Draw(mpBatch, *mpSpriteFrame, mWorldPos + vTilePos - offset, tint);
 		}
+		(*pVecTile)[GetTileIndex(mPosition)]->moveNum = 0;
 		for (int x = 0; x < vecScopeIndex.size(); ++x)
 		{
 			(*pVecTile)[vecScopeIndex[x]]->moveNum = 0;
@@ -133,6 +134,11 @@ void MoveBox::Draw()
 	else
 	{
 		mSeekScope = false;
+		for (int x = 0; x < vecScopeIndex.size(); ++x)
+		{
+			(*pVecTile)[vecScopeIndex[x]]->moveNum = 0;
+		}
+		vecScopeIndex.clear();
 	}
 
 }
@@ -200,7 +206,7 @@ void MoveBox::TileScope()
 	//}
 	//케릭터의 위치타일에 이동거리를 넣음
 	(*pVecTile)[GetTileIndex(mPosition)]->moveNum = mMoveDistance;
-	vecScopeIndex.push_back(GetTileIndex(mPosition));
+	//vecScopeIndex.push_back(GetTileIndex(mPosition));
 	for (int mDis = mMoveDistance; mDis > 0; --mDis)
 	{
 		for (int i = 0; i < 20; ++i)
