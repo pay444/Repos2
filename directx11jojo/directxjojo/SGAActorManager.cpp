@@ -18,7 +18,7 @@ SGAActorManager::~SGAActorManager()
 
 E_SCENE SGAActorManager::Update(float dt)
 {
-
+	int x = 0;
 	//SortActors();
 	//값이 바뀌지 않음
 	for (const auto &actor : mActors)
